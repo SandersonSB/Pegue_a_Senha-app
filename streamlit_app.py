@@ -1,5 +1,6 @@
 # app.py
 # com chat
+pip install seaborn
 import streamlit as st
 import pandas as pd
 import seaborn as sns
