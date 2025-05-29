@@ -20,26 +20,23 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# 🖼️ UPLOAD DO LOGOTIPO (caso o usuário queira carregar uma imagem da empresa)
-logo = st.file_uploader("https://raw.githubusercontent.com/SandersonSB/Pegue_a_Senha-app/main/Gemini_Generated_Image_cmgp3hcmgp3hcmgp.png", type=["png", "jpg", "jpeg"])
+# 🖼️ MOSTRA DIRETAMENTE O LOGOTIPO DA INTERNET (sem precisar fazer upload)
+logo_url = "https://raw.githubusercontent.com/SandersonSB/Pegue_a_Senha-app/main/Gemini_Generated_Image_cmgp3hcmgp3hcmgp.png"
+st.image(logo_url, width=200)  # Mostra o logo com largura de 200 pixels
 
-# Verifica se o usuário enviou um arquivo de imagem
-if logo:
-    st.image(logo, width=200)  # Mostra o logo com largura de 200 pixels
+# Mensagem de boas-vindas
+st.markdown(
+    "<h2 style='text-align: center; color: #4CAF50;'>Seja Bem-vindo ao Pegue a Senha 🎰</h2>",
+    unsafe_allow_html=True
+)
 
-    # Mensagem de boas-vindas
-    st.markdown(
-        "<h2 style='text-align: center; color: #4CAF50;'>Seja Bem-vindo ao Pegue a Senha 🎰</h2>",
-        unsafe_allow_html=True
-    )
+# Animação de carregamento por 2 segundos
+with st.spinner("Iniciando o sistema..."):
+    time.sleep(2)  # Espera 2 segundos para criar um efeito
 
-    # Animação de carregamento por 2 segundos
-    with st.spinner("Iniciando o sistema..."):
-        time.sleep(2)  # Espera 2 segundos para criar um efeito
+    st.balloons()  # Solta balões na tela
 
-        st.balloons()  # Solta balões na tela
-
-    st.divider()  # Linha para separar o topo do restante do conteúdo
+st.divider()  # Linha para separar o topo do restante do conteúdo
 
 # 🧭 CRIA AS ABAS DO APP
 abas = st.tabs([
