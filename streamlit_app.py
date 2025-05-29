@@ -1,6 +1,4 @@
-python
-Copiar
-Editar
+
 # app.py
 # Aplicativo web para visualizar o desempenho de times de futebol
 
