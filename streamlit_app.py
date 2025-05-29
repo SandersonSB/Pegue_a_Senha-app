@@ -8,9 +8,21 @@ import seaborn as sns  # cria gráficos mais bonitos
 import matplotlib.pyplot as plt  # biblioteca de gráficos
 
 # Configura o visual da página do app
-st.set_page_config(page_title="Análise de Resultados por Time", layout="wide", initial_sidebar_state="expanded")
+st.set_page_config(page_title="Análise de Resultados por Time", layout="wide")
 
+abas = st.tabs (["📘 Introdução", "📊 Histórico de temporadas", "🔢 Probabilidade", "🤔 Curiosidades"] )
 # Título principal do aplicativo
+
+with abas[0]:
+
+ st.header("Introdução")
+    st.write("""
+        EM DESENVOLVIMENTO !!!
+    """)
+
+with abas[1]:
+
+ st.header("Analise de Temporada")
 st.title("📊 Análise de Resultados de Times de Futebol")
 
 # Função para carregar e preparar os dados, usando cache para não carregar toda hora
@@ -80,3 +92,12 @@ if times_selecionados:
 else:
     # Se o usuário não escolheu nenhum time, mostra uma mensagem
     st.info("👈 Por favor, selecione pelo menos um time na lista acima.")
+
+with abas[2]:
+    st.header("Probabilidades")
+    st.write("EM DESENVOLVIMENTO !!!")
+
+# Aba 4: Curiosidades
+with abas[3]:
+    st.header("Curiosidades")
+    st.write("EM DESENVOLVIMENTO !!!")
