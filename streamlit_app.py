@@ -85,7 +85,7 @@ with abas[1]:
 # Aba 2: Probabilidades
 with abas[2]:
     st.header("Probabilidades")
-        st.whrite ("Probabilidades - EM DESENVOLVIMENTO! 🛠️🔧 ")
+    st.whrite ("Probabilidades - EM DESENVOLVIMENTO! 🛠️🔧 ")
 
 # Aba 3: Curiosidades
 with abas[3]:
