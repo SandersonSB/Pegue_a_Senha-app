@@ -16,7 +16,7 @@ abas = st.tabs(["📘 Introdução", "📊 Histórico de temporadas", "🔢 Prob
 # Aba 0: Introdução
 with abas[0]:
     st.header("Introdução")
-    st.whrite ("Intordução! EM DESENVOLVIMENTO 🛠️🔧.")
+    st.write ("Intordução! EM DESENVOLVIMENTO 🛠️🔧.")
 
 # Aba 1: Histórico de temporadas
 with abas[1]:
@@ -85,9 +85,9 @@ with abas[1]:
 # Aba 2: Probabilidades
 with abas[2]:
     st.header("Probabilidades")
-    st.whrite ("Probabilidades - EM DESENVOLVIMENTO! 🛠️🔧.")
+    st.write ("Probabilidades - EM DESENVOLVIMENTO! 🛠️🔧.")
 
 # Aba 3: Curiosidades
 with abas[3]:
     st.header("Curiosidades")
-    st.whrite ("Curiosidades -  EM DESENVOLVIMENTO! 🛠️🔧.")
+    st.write ("Curiosidades -  EM DESENVOLVIMENTO! 🛠️🔧.")
