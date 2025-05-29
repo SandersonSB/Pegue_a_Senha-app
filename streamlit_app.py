@@ -29,7 +29,7 @@ st.markdown(
 
 # Mensagem de boas-vindas
 st.markdown(
-    "<h2 style='text-align: center; color: ##FFD700;'>Seja Bem-vindo ao Pegue a Senha 🎰</h2>",
+    "<h2 style='text-align: center; color: #FFD700;'>Seja Bem-vindo ao Pegue a Senha 🎰</h2>",
     unsafe_allow_html=True
 )
 
