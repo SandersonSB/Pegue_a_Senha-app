@@ -21,7 +21,7 @@ st.markdown(
 )
 
 # 🖼️ MOSTRA DIRETAMENTE O LOGOTIPO DA INTERNET (sem precisar fazer upload)
-logo_url = "https://raw.githubusercontent.com/SandersonSB/Pegue_a_Senha-app/main/Gemini_Generated_Image_cmgp3hcmgp3hcmgp.png"
+logo_url = "https://raw.githubusercontent.com/SandersonSB/Pegue_a_Senha-app/main/Gemini_Generated_Image_3rlegz3rlegz3rle.png"
 st.markdown(
     f"<div style='text-align: center;'><img src='{logo_url}' width='200'></div>",
     unsafe_allow_html=True
