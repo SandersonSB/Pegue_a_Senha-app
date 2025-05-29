@@ -21,7 +21,7 @@ st.markdown(
 )
 
 # 🖼️ UPLOAD DO LOGOTIPO (caso o usuário queira carregar uma imagem da empresa)
-logo = st.file_uploader("Envie aqui o logotipo da empresa (formatos aceitos: png, jpg, jpeg)", type=["png", "jpg", "jpeg"])
+logo = st.file_uploader("https://raw.githubusercontent.com/SandersonSB/Pegue_a_Senha-app/main/Gemini_Generated_Image_cmgp3hcmgp3hcmgp.png", type=["png", "jpg", "jpeg"])
 
 # Verifica se o usuário enviou um arquivo de imagem
 if logo:
