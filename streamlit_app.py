@@ -16,9 +16,9 @@ abas = st.tabs (["📘 Introdução", "📊 Histórico de temporadas", "🔢 Pro
 with abas[0]:
 
  st.header("Introdução")
-    st.write("""
+    st.write("
         EM DESENVOLVIMENTO !!!
-    """)
+    ")
 
 with abas[1]:
 
