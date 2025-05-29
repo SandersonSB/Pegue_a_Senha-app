@@ -8,7 +8,7 @@ import seaborn as sns  # cria gráficos mais bonitos
 import matplotlib.pyplot as plt  # biblioteca de gráficos
 
 # Configura o visual da página do app
-st.set_page_config(page_title="Análise de Resultados por Time", layout="wide")
+st.set_page_config(page_title="Análise de Resultados por Time", layout="wide", initial_sidebar_state="expanded")
 
 # Título principal do aplicativo
 st.title("📊 Análise de Resultados de Times de Futebol")
