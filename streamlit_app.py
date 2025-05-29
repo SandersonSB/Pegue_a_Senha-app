@@ -7,6 +7,44 @@ import streamlit as st  # cria a interface do app
 import pandas as pd  # manipula os dados
 import seaborn as sns  # cria gráficos mais bonitos
 import matplotlib.pyplot as plt  # biblioteca de gráficos
+import time
+
+# Configuração inicial da página do Streamlit
+st.set_page_config(
+    page_title="Pegue a Senha",  # Título da aba do navegador
+    layout="centered"            # Centraliza o conteúdo na tela
+)
+
+# Título visual opcional (pode ser retirado se usar só o logo)
+st.markdown("<h1 style='text-align: center; color: #6c63ff;'>Pegue a Senha 🎲</h1>", unsafe_allow_html=True)
+
+# Seção para o usuário carregar o logotipo da empresa
+logo = st.file_uploader("Carregue o logotipo da empresa", type=["png", "jpg", "jpeg"])
+
+# Verifica se o logo foi carregado
+if logo:
+    # Exibe o logotipo centralizado
+    st.image(logo, width=200)
+
+    # Mostra uma mensagem de boas-vindas logo abaixo
+    st.markdown(
+        "<h2 style='text-align: center; color: #4CAF50;'>Seja Bem-vindo ao Pegue a Senha 🎰</h2>",
+        unsafe_allow_html=True
+    )
+
+    # Exibe um spinner (ícone de carregamento) por 2 segundos
+    with st.spinner("Iniciando o sistema..."):
+        time.sleep(2)
+
+        # Solta balões na tela como efeito visual de boas-vindas
+        st.balloons()
+
+    # Linha divisória antes do conteúdo principal
+    st.divider()
+
+
+
+
 
 # Configura o visual da página do app
 st.set_page_config(page_title="Análise de Resultados por Time", layout="wide")
