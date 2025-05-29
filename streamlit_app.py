@@ -19,7 +19,7 @@ st.set_page_config(
 st.markdown("<h1 style='text-align: center; color: #6c63ff;'>Pegue a Senha 🎲</h1>", unsafe_allow_html=True)
 
 # Seção para o usuário carregar o logotipo da empresa
-logo = st.file_uploader("Carregue o logotipo da empresa", type=["png", "jpg", "jpeg"])
+logo = st.file_uploader("https://github.com/SandersonSB/Pegue_a_Senha-app/blob/main/Gemini_Generated_Image_cmgp3hcmgp3hcmgp.png", type=["png", "jpg", "jpeg"])
 
 # Verifica se o logo foi carregado
 if logo:
