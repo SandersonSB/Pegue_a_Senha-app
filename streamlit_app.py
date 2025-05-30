@@ -131,7 +131,7 @@ with abas[1]:
         # Mostra o gráfico no app
         st.pyplot(plt)
     else:
-        st.info("👈 Por favor, selecione pelo menos um time na lista acima.")
+        st.info("👈 Por favor, selecione pelo menos um time e categoria nas listas acima.")
 
 # ➤ ABA 3: PROBABILIDADES
 with abas[2]:
