@@ -103,13 +103,17 @@ with abas[1]:
     # Mostra os times disponíveis para escolher
     times_disponiveis = sorted(manlydf['Time_Referente'].dropna().unique())
 
-    # Caixa onde o usuário escolhe um ou mais times
+    # Mostra os times as categorias disponivies
+    categorias_disponiveis = sorted(manlydf['Res'].dropna().unique())
+    # Caixa onde o usuário escolhe um ou mais times e ou categorias
     times_selecionados = st.multiselect("Selecione os times para análise:", times_disponiveis)
+    categorias_selecionadas = st.multiselect("Selecione as categorias para analise:", categorias_disponiveis)
 
     # Só mostra os gráficos se o usuário selecionar pelo menos 1 time
     if times_selecionados:
         # Filtra os dados pelos times escolhidos
         df_filtrado = manlydf[manlydf['Time_Referente'].isin(times_selecionados)]
+        df_filtrado = manlydf[manlydf['Res'].isin(categorias_selecionadas)]
 
         # Agrupa os resultados por temporada
         df_grouped = df_filtrado.groupby(['Season', 'Res'], as_index=False)['count'].sum()
