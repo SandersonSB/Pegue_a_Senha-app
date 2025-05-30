@@ -16,7 +16,7 @@ st.set_page_config(
 
 # 🟣 TÍTULO PRINCIPAL DO APP COM ESTILO PERSONALIZADO
 st.markdown(
-    "<h1 style='text-align: center; color: #6c63ff;'>USER: EM DESENVOLVIMENTO!! 🛠️🔧</h1>",
+    "<h1 style='text-align: center; color: #6c63ff;'>Seja Bem-vindo ao Pegue a Senha 🎰</h1>",
     unsafe_allow_html=True
 )
 
@@ -29,7 +29,7 @@ st.markdown(
 
 # Mensagem de boas-vindas
 st.markdown(
-    "<h2 style='text-align: center; color: #FFD700;'>Seja Bem-vindo ao Pegue a Senha 🎰</h2>",
+    "<h2 style='text-align: center; color: #FFD700;'>FUT ANALYSIS ⚽</h2>",
     unsafe_allow_html=True
 )
 
