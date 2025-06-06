@@ -132,6 +132,70 @@ with abas[1]:
         st.pyplot(plt)
     else:
         st.info("👈 Por favor, selecione pelo menos um time e categoria nas listas acima.")
+        st.title("📊 VEJA OS UTLTIMOS HISTÓRICOS")
+        import streamlit as st
+import pandas as pd
+
+@st.cache_data
+def load_data_semelhantes():
+    url = 'https://raw.githubusercontent.com/SandersonSB/Pega-Senha-Project/main/BRA.csv'
+    df = pd.read_csv(url)
+
+    codigotimes = 3090
+    teams = pd.concat([df['Home'], df['Away']]).unique()
+    team_ids = {team: i for i, team in enumerate(teams)}
+    df['Home Team ID'] = df['Home'].map(team_ids) + codigotimes
+    df['Away Team ID'] = df['Away'].map(team_ids) + codigotimes
+    df['Cod Match'] = df['Home Team ID'].astype(str) + "-" + df['Away Team ID'].astype(str)
+
+    newdf1 = df.groupby(['Country', 'League', 'Season', 'Home', 'Away','HG','AG','Date', 'Cod Match'])['Res'].value_counts().reset_index(name='count')
+    newdf1['Res'] = newdf1['Res'].replace({
+        'A': 'DERROTA/DENTRO DE CASA',
+        'D': 'EMPATE/DENTRO DE CASA',
+        'H': 'VITORIA/DENTRO DE CASA'
+    })
+    newdf1['Time_Referente'] = newdf1['Home']
+
+    newdf2 = df.groupby(['Country', 'League', 'Season', 'Away', 'Home','HG','AG', 'Date', 'Cod Match'])['Res'].value_counts().reset_index(name='count')
+    newdf2['Res'] = newdf2['Res'].replace({
+        'A': 'VITORIA/FORA DE CASA',
+        'D': 'EMPATE/FORA DE CASA',
+        'H': 'DERROTA/FORA DE CASA'
+    })
+    newdf2['Time_Referente'] = newdf2['Away']
+
+    manlydf = pd.concat([newdf1, newdf2], ignore_index=True)
+    manlydf['Season'] = manlydf['Season'].astype(int)
+    return manlydf
+
+# Carrega dados
+st.title("📊 Análise de Últimos Jogos de Times")
+manlydf1 = load_data_semelhantes()
+
+# Lista de times únicos da coluna "Time_Referente"
+lista_times = sorted(manlydf1['Time_Referente'].dropna().unique())
+
+# Dropdowns para seleção
+timedecasa = st.selectbox("Selecione o time da **casa**:", lista_times)
+timedefora = st.selectbox("Selecione o time **visitante**:", lista_times)
+
+if timedecasa and timedefora:
+    jogos_casa = manlydf1[manlydf1['Time_Referente'] == timedecasa].copy()
+    jogos_fora = manlydf1[manlydf1['Time_Referente'] == timedefora].copy()
+
+    # Converte datas
+    jogos_casa['Date'] = pd.to_datetime(jogos_casa['Date'], dayfirst=True)
+    jogos_fora['Date'] = pd.to_datetime(jogos_fora['Date'], dayfirst=True)
+
+    # Últimos 7 jogos únicos por time
+    ultimos_7_casa = jogos_casa.sort_values('Date', ascending=False).drop_duplicates(subset='Cod Match').head(7)
+    ultimos_7_fora = jogos_fora.sort_values('Date', ascending=False).drop_duplicates(subset='Cod Match').head(7)
+
+    st.subheader(f"📅 Últimos 7 jogos do time **{timedecasa}** (como referência):")
+    st.dataframe(ultimos_7_casa[['Date', 'Home', 'Away','HG','AG','Res','Time_Referente', 'Cod Match']])
+
+    st.subheader(f"📅 Últimos 7 jogos do time **{timedefora}** (como referência):")
+    st.dataframe(ultimos_7_fora[['Date', 'Home', 'Away','HG','AG','Res','Time_Referente', 'Cod Match']])
 
 # ➤ ABA 3: PROBABILIDADES
 with abas[2]:
