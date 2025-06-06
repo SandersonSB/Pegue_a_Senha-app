@@ -173,7 +173,7 @@ st.title("📊 Análise de Últimos Jogos de Times")
 manlydf1 = load_data_semelhantes()
 
 # Lista de times únicos da coluna "Time_Referente"
-lista_times = sorted(manlydf1['Time_Referente'].dropna().unique())
+lista_times = ["Selecione um time..."] + sorted(manlydf1['Time_Referente'].dropna().unique())
 
 # Dropdowns para seleção
 timedecasa = st.selectbox("Selecione o time da **casa**:", lista_times)
