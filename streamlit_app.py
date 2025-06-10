@@ -201,7 +201,7 @@ if timedecasa and timedefora:
 with abas[2]:
      st.header("🔢 Probabilidade com base em jogos semelhantes")
     
-        if not ultimos_7_casa.empty and not ultimos_7_fora.empty:
+     if not ultimos_7_casa.empty and not ultimos_7_fora.empty:
         # Junta os dois DataFrames (da casa e fora) em um só
         df_casa = ultimos_7_casa.copy()
         df_fora = ultimos_7_fora.copy()
