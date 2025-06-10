@@ -169,7 +169,7 @@ def load_data_semelhantes():
     return manlydf
 
 # Carrega dados
-st.title("📊 Análise de Últimos Jogos de Times")
+
 manlydf1 = load_data_semelhantes()
 
 # Lista de times únicos da coluna "Time_Referente"
