@@ -37,7 +37,7 @@ st.markdown(
 with st.spinner("Iniciando o sistema..."):
     time.sleep(2)  # Espera 2 segundos para criar um efeito
 
-    st.balloons()  # Solta balões na tela
+    st.spinner("Carrregando...")  # Solta balões na tela
 
 st.divider()  # Linha para separar o topo do restante do conteúdo
 
