@@ -199,8 +199,50 @@ if timedecasa and timedefora:
 
 # ➤ ABA 3: PROBABILIDADES
 with abas[2]:
-    st.header("Probabilidades")
-    st.write("Probabilidades - EM DESENVOLVIMENTO! 🛠️🔧.")
+     st.header("🔢 Probabilidade com base em jogos semelhantes")
+    
+    if not ultimos_7_casa.empty and not ultimos_7_fora.empty:
+        # Junta os dois DataFrames (da casa e fora) em um só
+        df_casa = ultimos_7_casa.copy()
+        df_fora = ultimos_7_fora.copy()
+
+        # Normaliza os nomes das colunas para facilitar
+        df_casa['Adversario'] = df_casa.apply(lambda row: row['Away'] if row['Home'] == timedecasa else row['Home'], axis=1)
+        df_fora['Adversario'] = df_fora.apply(lambda row: row['Away'] if row['Home'] == timedefora else row['Home'], axis=1)
+
+        # Filtra os adversários em comum nos dois DataFrames
+        adversarios_comuns = set(df_casa['Adversario']).intersection(set(df_fora['Adversario']))
+
+        if adversarios_comuns:
+            st.success("✅ Foram encontrados adversários em comum nos últimos 7 jogos.")
+
+            # Cria uma lista para armazenar os jogos comparáveis
+            comparacoes = []
+
+            for adversario in adversarios_comuns:
+                jogo_time_casa = df_casa[df_casa['Adversario'] == adversario].iloc[0]
+                jogo_time_fora = df_fora[df_fora['Adversario'] == adversario].iloc[0]
+
+                comparacoes.append({
+                    'Adversário': adversario,
+                    'Data Jogo Time Casa': jogo_time_casa['Date'].date(),
+                    'Local Time Casa': 'Casa' if jogo_time_casa['Home'] == timedecasa else 'Fora',
+                    'Placar Time Casa': f"{jogo_time_casa['HG']} x {jogo_time_casa['AG']}",
+                    'Resultado Time Casa': jogo_time_casa['Res'],
+
+                    'Data Jogo Time Fora': jogo_time_fora['Date'].date(),
+                    'Local Time Fora': 'Casa' if jogo_time_fora['Home'] == timedefora else 'Fora',
+                    'Placar Time Fora': f"{jogo_time_fora['HG']} x {jogo_time_fora['AG']}",
+                    'Resultado Time Fora': jogo_time_fora['Res'],
+                })
+
+            # Mostra a tabela final com os jogos semelhantes
+            df_comparacoes = pd.DataFrame(comparacoes)
+            st.dataframe(df_comparacoes)
+        else:
+            st.warning("⚠️ Nenhum adversário em comum foi encontrado nos últimos 7 jogos.")
+    else:
+        st.info("🔎 Os dois times precisam ter jogos recentes para calcular jogos semelhantes.")
 
 # ➤ ABA 4: CURIOSIDADES
 with abas[3]:
