@@ -241,7 +241,7 @@ with abas[2]:
             st.dataframe(df_comparacoes)
         else:
             st.warning("⚠️ Nenhum adversário em comum foi encontrado nos últimos 7 jogos.")
-    else:
+     else:
         st.info("🔎 Os dois times precisam ter jogos recentes para calcular jogos semelhantes.")
 
 # ➤ ABA 4: CURIOSIDADES
