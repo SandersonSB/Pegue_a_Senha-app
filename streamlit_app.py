@@ -8,38 +8,58 @@ import seaborn as sns  # Faz gráficos mais bonitos
 import matplotlib.pyplot as plt  # Mostra os gráficos na tela
 import time  # Usado para pausar por alguns segundos (efeitos visuais)
 
-# 🔧 CONFIGURAÇÃO INICIAL DO APLICATIVO - Isso sempre deve ser a primeira coisa depois dos imports
+# 🔧 CONFIGURAÇÃO INICIAL DO APLICATIVO
 st.set_page_config(
-    page_title="Pegue a Senha",  # Título que aparece na aba do navegador
-    layout="wide"  # Define o layout como mais espaçado (melhor para gráficos)
+    page_title="Pegue a Senha 🎰",
+    layout="wide"
 )
 
-# 🟣 TÍTULO PRINCIPAL DO APP COM ESTILO PERSONALIZADO
-st.markdown(
-    "<h1 style='text-align: center; color: #6c63ff;'>Seja Bem-vindo ao Pegue a Senha 🎰</h1>",
-    unsafe_allow_html=True
-)
+# 🌟 ESTILO GLOBAL PERSONALIZADO
+st.markdown("""
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        h1 {
+            font-family: 'Trebuchet MS', sans-serif;
+        }
+        .titulo-principal {
+            text-align: center;
+            color: #6c63ff;
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        .subtitulo {
+            text-align: center;
+            color: #FFD700;
+            font-size: 28px;
+            font-weight: bold;
+            margin-top: -10px;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
-# 🖼️ MOSTRA DIRETAMENTE O LOGOTIPO DA INTERNET (sem precisar fazer upload)
+# 🟣 TÍTULO CENTRAL COM ESTILO
+st.markdown("<div class='titulo-principal'>Seja Bem-vindo ao Pegue a Senha 🎰</div>", unsafe_allow_html=True)
+
+# 🖼️ LOGO CENTRALIZADO
 logo_url = "https://raw.githubusercontent.com/SandersonSB/Pegue_a_Senha-app/main/Gemini_Generated_Image_3rlegz3rlegz3rle.png"
-st.markdown(
-    f"<div style='text-align: center;'><img src='{logo_url}' width='200'></div>",
-    unsafe_allow_html=True
-)
+st.markdown(f"<div class='logo'><img src='{logo_url}' width='180'></div>", unsafe_allow_html=True)
 
-# Mensagem de boas-vindas
-st.markdown(
-    "<h2 style='text-align: center; color: #FFD700;'>FUT ANALYSIS ⚽</h2>",
-    unsafe_allow_html=True
-)
+# ⚽ SUBTÍTULO DOURADO
+st.markdown("<div class='subtitulo'>FUT ANALYSIS ⚽</div>", unsafe_allow_html=True)
 
-# Animação de carregamento por 2 segundos
-with st.spinner("Iniciando o sistema..."):
-    time.sleep(2)  # Espera 2 segundos para criar um efeito
+# 🎬 ANIMAÇÃO DE CARREGAMENTO
+with st.spinner("⏳ Iniciando o sistema..."):
+    time.sleep(2)
 
-    st.spinner("Carrregando...")  # Solta balões na tela
 
-st.divider()  # Linha para separar o topo do restante do conteúdo
+# 🔻 DIVISOR
+st.divider()
 
 # 🧭 CRIA AS ABAS DO APP
 abas = st.tabs([
