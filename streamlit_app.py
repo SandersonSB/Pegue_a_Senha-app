@@ -54,7 +54,7 @@ st.markdown(f"<div class='logo'><img src='{logo_url}' width='180'></div>", unsaf
 st.markdown("<div class='subtitulo'>FUT ANALYSIS ⚽</div>", unsafe_allow_html=True)
 
 # 🎬 ANIMAÇÃO DE CARREGAMENTO
-with st.spinner("⏳ Iniciando o sistema..."):
+with st.spinner("⏳ Carregando..."):
     time.sleep(2)
 
 
