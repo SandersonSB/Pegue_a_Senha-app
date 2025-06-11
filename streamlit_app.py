@@ -217,11 +217,11 @@ with abas[2]:
      st.header("🔢 Probabilidade com base em jogos semelhantes")
 
     # Lista de times únicos da coluna "Time_Referente"
-lista_times = ["Selecione um time..."] + sorted(manlydf1['Time_Referente'].dropna().unique())
+    lista_times = ["Selecione um time..."] + sorted(manlydf1['Time_Referente'].dropna().unique())
 
 # Dropdowns para seleção
-timedecasa = st.selectbox("Selecione o time da **casa**:", lista_times)
-timedefora = st.selectbox("Selecione o time **visitante**:", lista_times)
+    timedecasa = st.selectbox("Selecione o time da **casa**:", lista_times)
+    timedefora = st.selectbox("Selecione o time **visitante**:", lista_times)
     
      if not ultimos_7_casa.empty and not ultimos_7_fora.empty:
         # Junta os dois DataFrames (da casa e fora) em um só
