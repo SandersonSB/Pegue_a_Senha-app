@@ -219,100 +219,53 @@ if timedecasa and timedefora:
 
 # ➤ ABA 3: PROBABILIDADES
 with abas[2]:
-    st.header("🔢 Probabilidade com base em jogos semelhantes")
+     st.header("🔢 Probabilidade com base em jogos semelhantes")
 
-    # Função para carregar dados de jogos semelhantes
-    @st.cache_data
-    def load_data_semelhantes():
-        url = 'https://raw.githubusercontent.com/SandersonSB/Pega-Senha-Project/main/BRA.csv'
-        df = pd.read_csv(url)
 
-        codigotimes = 3090
-        teams = pd.concat([df['Home'], df['Away']]).unique()
-        team_ids = {team: i for i, team in enumerate(teams)}
-        df['Home Team ID'] = df['Home'].map(team_ids) + codigotimes
-        df['Away Team ID'] = df['Away'].map(team_ids) + codigotimes
-        df['Cod Match'] = df['Home Team ID'].astype(str) + "-" + df['Away Team ID'].astype(str)
+    
+     if not ultimos_7_casa.empty and not ultimos_7_fora.empty:
+        # Junta os dois DataFrames (da casa e fora) em um só
+        df_casa = ultimos_7_casa.copy()
+        df_fora = ultimos_7_fora.copy()
 
-        newdf1 = df.groupby(['Country', 'League', 'Season', 'Home', 'Away','HG','AG','Date', 'Cod Match'])['Res'].value_counts().reset_index(name='count')
-        newdf1['Res'] = newdf1['Res'].replace({
-            'A': 'DERROTA/DENTRO DE CASA',
-            'D': 'EMPATE/DENTRO DE CASA',
-            'H': 'VITORIA/DENTRO DE CASA'
-        })
-        newdf1['Time_Referente'] = newdf1['Home']
+        # Normaliza os nomes das colunas para facilitar
+        df_casa['Adversario'] = df_casa.apply(lambda row: row['Away'] if row['Home'] == timedecasa else row['Home'], axis=1)
+        df_fora['Adversario'] = df_fora.apply(lambda row: row['Away'] if row['Home'] == timedefora else row['Home'], axis=1)
 
-        newdf2 = df.groupby(['Country', 'League', 'Season', 'Away', 'Home','HG','AG', 'Date', 'Cod Match'])['Res'].value_counts().reset_index(name='count')
-        newdf2['Res'] = newdf2['Res'].replace({
-            'A': 'VITORIA/FORA DE CASA',
-            'D': 'EMPATE/FORA DE CASA',
-            'H': 'DERROTA/FORA DE CASA'
-        })
-        newdf2['Time_Referente'] = newdf2['Away']
+        # Filtra os adversários em comum nos dois DataFrames
+        adversarios_comuns = set(df_casa['Adversario']).intersection(set(df_fora['Adversario']))
 
-        manlydf = pd.concat([newdf1, newdf2], ignore_index=True)
-        manlydf['Season'] = manlydf['Season'].astype(int)
-        return manlydf
+        if adversarios_comuns:
+            st.success("✅ Foram encontrados adversários em comum nos últimos 7 jogos.")
 
-    # Carrega dados
-    manlydf1 = load_data_semelhantes()
-    lista_times = ["Selecione um time..."] + sorted(manlydf1['Time_Referente'].dropna().unique())
+            # Cria uma lista para armazenar os jogos comparáveis
+            comparacoes = []
 
-    # Dropdowns de seleção
-    timedecasa = st.selectbox("Selecione o time da **casa**:", lista_times)
-    timedefora = st.selectbox("Selecione o time **visitante**:", lista_times)
+            for adversario in adversarios_comuns:
+                jogo_time_casa = df_casa[df_casa['Adversario'] == adversario].iloc[0]
+                jogo_time_fora = df_fora[df_fora['Adversario'] == adversario].iloc[0]
 
-    if timedecasa and timedefora:
-        jogos_casa = manlydf1[manlydf1['Time_Referente'] == timedecasa].copy()
-        jogos_fora = manlydf1[manlydf1['Time_Referente'] == timedefora].copy()
+                comparacoes.append({
+                    'Adversário': adversario,
+                    'Data Jogo Time Casa': jogo_time_casa['Date'].date(),
+                    'Local Time Casa': 'Casa' if jogo_time_casa['Home'] == timedecasa else 'Fora',
+                    'Placar Time Casa': f"{jogo_time_casa['HG']} x {jogo_time_casa['AG']}",
+                    'Resultado Time Casa': jogo_time_casa['Res'],
 
-        jogos_casa['Date'] = pd.to_datetime(jogos_casa['Date'], dayfirst=True)
-        jogos_fora['Date'] = pd.to_datetime(jogos_fora['Date'], dayfirst=True)
+                    'Data Jogo Time Fora': jogo_time_fora['Date'].date(),
+                    'Local Time Fora': 'Casa' if jogo_time_fora['Home'] == timedefora else 'Fora',
+                    'Placar Time Fora': f"{jogo_time_fora['HG']} x {jogo_time_fora['AG']}",
+                    'Resultado Time Fora': jogo_time_fora['Res'],
+                })
 
-        ultimos_7_casa = jogos_casa.sort_values('Date', ascending=False).drop_duplicates(subset='Cod Match').head(7)
-        ultimos_7_fora = jogos_fora.sort_values('Date', ascending=False).drop_duplicates(subset='Cod Match').head(7)
-
-        st.subheader(f"📅 Últimos 7 jogos do time **{timedecasa}** (como referência):")
-        st.dataframe(ultimos_7_casa[['Date', 'Home', 'Away','HG','AG','Res','Time_Referente', 'Cod Match']])
-
-        st.subheader(f"📅 Últimos 7 jogos do time **{timedefora}** (como referência):")
-        st.dataframe(ultimos_7_fora[['Date', 'Home', 'Away','HG','AG','Res','Time_Referente', 'Cod Match']])
-
-        if not ultimos_7_casa.empty and not ultimos_7_fora.empty:
-            df_casa = ultimos_7_casa.copy()
-            df_fora = ultimos_7_fora.copy()
-
-            df_casa['Adversario'] = df_casa.apply(lambda row: row['Away'] if row['Home'] == timedecasa else row['Home'], axis=1)
-            df_fora['Adversario'] = df_fora.apply(lambda row: row['Away'] if row['Home'] == timedefora else row['Home'], axis=1)
-
-            adversarios_comuns = set(df_casa['Adversario']).intersection(set(df_fora['Adversario']))
-
-            if adversarios_comuns:
-                st.success("✅ Foram encontrados adversários em comum nos últimos 7 jogos.")
-
-                comparacoes = []
-                for adversario in adversarios_comuns:
-                    jogo_time_casa = df_casa[df_casa['Adversario'] == adversario].iloc[0]
-                    jogo_time_fora = df_fora[df_fora['Adversario'] == adversario].iloc[0]
-
-                    comparacoes.append({
-                        'Adversário': adversario,
-                        'Data Jogo Time Casa': jogo_time_casa['Date'].date(),
-                        'Local Time Casa': 'Casa' if jogo_time_casa['Home'] == timedecasa else 'Fora',
-                        'Placar Time Casa': f"{jogo_time_casa['HG']} x {jogo_time_casa['AG']}",
-                        'Resultado Time Casa': jogo_time_casa['Res'],
-                        'Data Jogo Time Fora': jogo_time_fora['Date'].date(),
-                        'Local Time Fora': 'Casa' if jogo_time_fora['Home'] == timedefora else 'Fora',
-                        'Placar Time Fora': f"{jogo_time_fora['HG']} x {jogo_time_fora['AG']}",
-                        'Resultado Time Fora': jogo_time_fora['Res'],
-                    })
-
-                df_comparacoes = pd.DataFrame(comparacoes)
-                st.dataframe(df_comparacoes)
-            else:
-                st.warning("⚠️ Nenhum adversário em comum foi encontrado nos últimos 7 jogos.")
+            # Mostra a tabela final com os jogos semelhantes
+            df_comparacoes = pd.DataFrame(comparacoes)
+            st.dataframe(df_comparacoes)
         else:
-            st.info("🔎 Os dois times precisam ter jogos recentes para calcular jogos semelhantes.")
+            st.warning("⚠️ Nenhum adversário em comum foi encontrado nos últimos 7 jogos.")
+     else:
+        st.info("🔎 Os dois times precisam ter jogos recentes para calcular jogos semelhantes.")
+
 # ➤ ABA 4: CURIOSIDADES
 with abas[3]:
     st.header("Curiosidades")
