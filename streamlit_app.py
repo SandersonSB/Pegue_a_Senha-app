@@ -64,6 +64,7 @@ def load_data_temporadas():
     return manlydf
 
 # Função para carregar dados detalhados de partidas (para análise de adversários semelhantes)
+
 @st.cache_data
 def load_data_semelhantes():
     url = 'https://raw.githubusercontent.com/SandersonSB/Pega-Senha-Project/main/BRA.csv'
@@ -137,7 +138,7 @@ with abas[1]:
         st.pyplot(plt)
     else:
         st.info("👈 Por favor, selecione pelo menos um time.")
-
+    st.title("📊 Analisar os um 7 jogos de cada time")
     # Parte que coleta os últimos 7 jogos dos times para a análise de probabilidade
     manlydf1 = load_data_semelhantes()
     lista_times = ["Selecione um time..."] + sorted(manlydf1['Time_Referente'].dropna().unique())
