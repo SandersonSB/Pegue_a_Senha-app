@@ -164,10 +164,7 @@ with abas[1]:
 # Aba 2 - Análise de probabilidade com adversários semelhantes
 with abas[2]:
     st.header("🔢 Probabilidade com base em jogos semelhantes")
-    manlydf1 = load_data_semelhantes()
-    lista_times = ["Selecione um time..."] + sorted(manlydf1['Time_Referente'].dropna().unique())
-    timedecasa = st.selectbox("Selecione o time da **casa**:", lista_times)
-    timedefora = st.selectbox("Selecione o time **visitante**:", lista_times)
+  
 
     if ultimos_7_casa is not None and ultimos_7_fora is not None:
         # Cria coluna de adversário (oponente) para comparar os dois times
